@@ -1,0 +1,320 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "ClicPic",
+        "description": "This api for clicpic.",
+        "termsOfService": "http://localhost/clicpic/terms/",
+        "contact": {
+            "email": "example@clicpic.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "host": "localhost",
+    "basePath": "/clicpic/api",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/register": {
+            "post": {
+                "tags": [
+                    "UserController"
+                ],
+                "summary": "Register User",
+                "description": "register user here uniqe is email and phone",
+                "operationId": "register",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "fullname",
+                        "in": "formData",
+                        "description": "Name of register user",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "username",
+                        "in": "formData",
+                        "description": "Username of register user",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "Email of register user",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "phone",
+                        "in": "formData",
+                        "description": "Phone of register user",
+                        "required": true,
+                        "type": "number"
+                    },
+                    {
+                        "name": "password",
+                        "in": "formData",
+                        "description": "Password of register user",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "country",
+                        "in": "formData",
+                        "description": "Country of register user",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "city",
+                        "in": "formData",
+                        "description": "City of register user",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "address",
+                        "in": "formData",
+                        "description": "Address of register user",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "camera",
+                        "in": "formData",
+                        "description": "Camera if yes 1 else 0",
+                        "required": false,
+                        "type": "number"
+                    },
+                    {
+                        "name": "image",
+                        "in": "formData",
+                        "description": "Image of register user",
+                        "required": true,
+                        "type": "file"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Request created successfully"
+                    },
+                    "400": {
+                        "description": "Missing parameter"
+                    },
+                    "401": {
+                        "description": "NOt authorize to complete this request"
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "UserController"
+                ],
+                "summary": "Login User",
+                "description": "Login user here uniqe is phone and password",
+                "operationId": "login",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "phone",
+                        "in": "formData",
+                        "description": "Phone of register user",
+                        "required": true,
+                        "type": "number"
+                    },
+                    {
+                        "name": "password",
+                        "in": "formData",
+                        "description": "Password of register user",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Request completed successfully"
+                    },
+                    "400": {
+                        "description": "Missing parameter"
+                    },
+                    "401": {
+                        "description": "NOt authorize to complete this request"
+                    }
+                }
+            }
+        },
+        "/profile": {
+            "get": {
+                "tags": [
+                    "UserController"
+                ],
+                "summary": "Profile User",
+                "description": "Profile of register user",
+                "operationId": "profile",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Enter your header token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Request completed successfully"
+                    },
+                    "400": {
+                        "description": "Missing parameter"
+                    },
+                    "401": {
+                        "description": "NOt authorize to complete this request"
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "get": {
+                "tags": [
+                    "UserController"
+                ],
+                "summary": "Logout User",
+                "description": "Logout user By this api",
+                "operationId": "logout",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Enter your header token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Request completed successfully"
+                    },
+                    "400": {
+                        "description": "Missing parameter"
+                    },
+                    "401": {
+                        "description": "NOt authorize to complete this request"
+                    }
+                }
+            }
+        },
+        "/delete": {
+            "delete": {
+                "tags": [
+                    "UserController"
+                ],
+                "summary": "Delete User",
+                "description": "Delete user user profile from clicpic",
+                "operationId": "deleteprofile",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Enter your header token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Request completed successfully"
+                    },
+                    "400": {
+                        "description": "Missing parameter"
+                    },
+                    "401": {
+                        "description": "NOt authorize to complete this request"
+                    }
+                }
+            }
+        },
+        "/confirm_phone": {
+            "get": {
+                "tags": [
+                    "UserController"
+                ],
+                "summary": "Confirm Phone",
+                "description": "Confirm Phone Number if exit or not",
+                "operationId": "confirm_phone",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "phone",
+                        "in": "query",
+                        "description": "Enter your phone number",
+                        "required": true,
+                        "type": "number"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Request completed successfully"
+                    },
+                    "400": {
+                        "description": "Missing parameter"
+                    },
+                    "401": {
+                        "description": "NOt authorize to complete this request"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {},
+    "tags": [
+        {
+            "name": "UserController",
+            "description": "manage every thing in this controller register login profile logout deleteprofile, updateprofile"
+        }
+    ],
+    "externalDocs": {
+        "description": "Find out more about clicpic",
+        "url": "http://localhost/clicpic"
+    }
+}

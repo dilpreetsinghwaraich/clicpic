@@ -19,6 +19,143 @@
         "http"
     ],
     "paths": {
+        "/save_comment": {
+            "post": {
+                "tags": [
+                    "CommentController"
+                ],
+                "summary": "Save Comments",
+                "description": "Save Comments on user according to user id",
+                "operationId": "save_comment",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Enter header token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "to_user_id",
+                        "in": "formData",
+                        "description": "Enter user_id which get comment",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "comment",
+                        "in": "formData",
+                        "description": "Enter Comment",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "rating",
+                        "in": "formData",
+                        "description": "Enter rating on user beetwen(0,5)",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Request created successfully"
+                    },
+                    "400": {
+                        "description": "Missing parameter"
+                    },
+                    "401": {
+                        "description": "NOt authorize to complete this request"
+                    }
+                }
+            }
+        },
+        "/get_comments": {
+            "get": {
+                "tags": [
+                    "CommentController"
+                ],
+                "summary": "Get Comment",
+                "description": "Get All comments according to user id",
+                "operationId": "get_comments",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "Enter user_id",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Request completed successfully"
+                    },
+                    "400": {
+                        "description": "Missing parameter"
+                    }
+                }
+            }
+        },
+        "/approve_comment": {
+            "put": {
+                "tags": [
+                    "CommentController"
+                ],
+                "summary": "Approve Comment",
+                "description": "Approve Comment with user id",
+                "operationId": "approve_comment",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Enter header token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "formData",
+                        "description": "Enter user_id",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "status",
+                        "in": "formData",
+                        "description": "Enter comment status(0 as unapprove, 1 as approve)",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Request completed successfully"
+                    },
+                    "400": {
+                        "description": "Missing parameter"
+                    }
+                }
+            }
+        },
         "/register": {
             "post": {
                 "tags": [
@@ -45,6 +182,13 @@
                         "name": "username",
                         "in": "formData",
                         "description": "Username of register user",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "user_role",
+                        "in": "formData",
+                        "description": "User role eg(photographer, user)",
                         "required": false,
                         "type": "string"
                     },
@@ -96,6 +240,13 @@
                         "description": "Camera if yes 1 else 0",
                         "required": false,
                         "type": "number"
+                    },
+                    {
+                        "name": "register_type",
+                        "in": "formData",
+                        "description": "Register user from social or app",
+                        "required": false,
+                        "type": "string"
                     },
                     {
                         "name": "image",
@@ -304,6 +455,105 @@
                     }
                 }
             }
+        },
+        "/updateprofile": {
+            "put": {
+                "tags": [
+                    "UserController"
+                ],
+                "summary": "Uodate Profile",
+                "description": "Update user profile",
+                "operationId": "updateprofile",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Enter your header token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "fullname",
+                        "in": "formData",
+                        "description": "Name of register user",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "username",
+                        "in": "formData",
+                        "description": "Username of register user",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "Email of register user",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "formData",
+                        "description": "Password of register user",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "country",
+                        "in": "formData",
+                        "description": "Country of register user",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "city",
+                        "in": "formData",
+                        "description": "City of register user",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "address",
+                        "in": "formData",
+                        "description": "Address of register user",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "camera",
+                        "in": "formData",
+                        "description": "Camera if yes 1 else 0",
+                        "required": false,
+                        "type": "number"
+                    },
+                    {
+                        "name": "image",
+                        "in": "formData",
+                        "description": "Image of register user",
+                        "required": true,
+                        "type": "file"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Request completed successfully"
+                    },
+                    "400": {
+                        "description": "Missing parameter"
+                    },
+                    "401": {
+                        "description": "NOt authorize to complete this request"
+                    }
+                }
+            }
         }
     },
     "definitions": {},
@@ -311,6 +561,10 @@
         {
             "name": "UserController",
             "description": "manage every thing in this controller register login profile logout deleteprofile, updateprofile"
+        },
+        {
+            "name": "CommentController",
+            "description": "In this controller you can manage save_comment, appprove_comment and get comments"
         }
     ],
     "externalDocs": {

@@ -37,6 +37,12 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
  *   description="manage every thing in this controller register login profile logout deleteprofile, updateprofile",
  * ),
 */
+/**
+ * @SWG\Tag(
+ *   name="CommentController",
+ *   description="In this controller you can manage save_comment, appprove_comment and get comments",
+ * ),
+*/
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;

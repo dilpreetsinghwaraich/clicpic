@@ -19,5 +19,9 @@ Route::group(['middleware' => 'accesstoken'], function () {
     Route::get('profile', 'Api\UserController@profile');
     Route::get('logout', 'Api\UserController@logout');
     Route::delete('delete', 'Api\UserController@deleteProfile');
+    Route::put('updateprofile', 'Api\UserController@updateprofile');
+    Route::post('save_comment', 'Api\CommentController@save_comment');
+    Route::put('approve_comment', 'Api\CommentController@approve_comment');
 });
 Route::get('confirm_phone', 'Api\UserController@confirm_phone');
+Route::get('comments', 'Api\CommentController@get_comments');

@@ -70,7 +70,8 @@ class User extends Authenticatable implements JWTSubject
             }
             $location = self::getlatlong((isset($request['address'])?$request['address']:'').' '.(isset($request['city'])?$request['city']:'').' '.(isset($request['country'])?$request['country']:''));
             $new_user = new User;
-            $new_user->name         = (isset($request['fullname'])?$request['fullname']:'');
+            $new_user->user_role    = (isset($request['user_role'])?$request['user_role']:'');
+            $new_user->fullname     = (isset($request['fullname'])?$request['fullname']:'');
             $new_user->username     = (isset($request['username'])?$request['username']:'');
             $new_user->email        = (isset($request['email'])?$request['email']:'');
             $new_user->phone        = (isset($request['phone'])?$request['phone']:'');
@@ -101,6 +102,7 @@ class User extends Authenticatable implements JWTSubject
     }
     protected function getlatlong($address)
     {
+        if(empty(trim($address))) return;
         $return = array();
         $prepAddr = str_replace(' ','+',$address);
         $geocode=file_get_contents('https://maps.google.com/maps/api/geocode/json?address='.$prepAddr.'&sensor=false');
@@ -168,11 +170,36 @@ class User extends Authenticatable implements JWTSubject
             return response()->json(['status' => false, 'message'=>$validation->getMessageBag()->first(), 'response' => '' ], 400);
         }
     }
+    public function updateprofile($request)
+    {
+        $location = self::getlatlong((isset($request['address'])?$request['address']:'').' '.(isset($request['city'])?$request['city']:'').' '.(isset($request['country'])?$request['country']:''));
+        $update_user = array();
+        $update_user['fullname']     = (isset($request['fullname'])?$request['fullname']:'');
+        $update_user['username']     = (isset($request['username'])?$request['username']:'');
+        $update_user['email']        = (isset($request['email'])?$request['email']:'');
+        $update_user['phone']        = (isset($request['phone'])?$request['phone']:'');
+        $update_user['country']      = (isset($request['country'])?$request['country']:'');
+        $update_user['city']         = (isset($request['city'])?$request['city']:'');
+        $update_user['address']      = (isset($request['address'])?$request['address']:'');
+        if(!empty($location))
+        {
+            $update_user['lattitude']    = (isset($location['latitude'])?$location['latitude']:'');
+            $update_user['longitude']    = (isset($location['longitude'])?$location['longitude']:'');
+        }
+        $update_user['camera']       = (isset($location['camera'])?1:0);
+        if($location['image'])
+        {
+            $update_user['image']        = self::fileupload($request['image']);
+        }
+        $update_user['updated_at']   = new DateTime;
+        user::where('token',$request->header('token'))->update($update_user);
+        return response()->json(['status'=>true,'message'=>'User profile updated','response'=>user::where('token',$request->header('token'))->first()],200);
+    }
     public function convert_social_image_url($newrequest)
     {
         $fileContents = file_get_contents($newrequest['login_image']);
         File::put(public_path() . '/images/uploads/' . $newrequest['login_social_id'] . ".jpg", $fileContents);
-        $newrequest['login_image'] =  'clicpic/public/images/uploads/'.$newrequest['login_social_id'] .'.jpg';
+        return 'clicpic/public/images/uploads/'.$newrequest['login_social_id'] .'.jpg';
     }
     public function fileupload($request){
         $file = $request->file('image');

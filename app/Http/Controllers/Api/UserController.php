@@ -32,6 +32,13 @@ class UserController extends Controller
      *         type="string"
      *     ),
      *     @SWG\Parameter(
+     *         name="user_role",
+     *         in="formData",
+     *         description="User role eg(photographer, user)",
+     *         required=false,
+     *         type="string"
+     *     ),
+     *     @SWG\Parameter(
      *         name="email",
      *         in="formData",
      *         description="Email of register user",
@@ -79,6 +86,13 @@ class UserController extends Controller
      *         description="Camera if yes 1 else 0",
      *         required=false,
      *         type="number"
+     *     ),
+     *     @SWG\Parameter(
+     *         name="register_type",
+     *         in="formData",
+     *         description="Register user from social or app",
+     *         required=false,
+     *         type="string"
      *     ),
      *     @SWG\Parameter(
      *         name="image",
@@ -276,5 +290,101 @@ class UserController extends Controller
      */
     public function confirm_phone(Request $request){
         return user::confirm_phone($request->all());
+    }
+    /**
+     * @SWG\Put(
+     *     path="/updateprofile",
+     *     summary="Uodate Profile",
+     *     tags={"UserController"},
+     *     description="Update user profile",
+     *     operationId="updateprofile",     
+     *     consumes={"multipart/form-data"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter(
+     *         name="token",
+     *         in="header",
+     *         description="Enter your header token",
+     *         required=true,
+     *         type="string"
+     *     ),
+     *     @SWG\Parameter(
+     *         name="fullname",
+     *         in="formData",
+     *         description="Name of register user",
+     *         required=true,
+     *         type="string"
+     *     ),
+     *     @SWG\Parameter(
+     *         name="username",
+     *         in="formData",
+     *         description="Username of register user",
+     *         required=false,
+     *         type="string"
+     *     ),
+     *     @SWG\Parameter(
+     *         name="email",
+     *         in="formData",
+     *         description="Email of register user",
+     *         required=true,
+     *         type="string"
+     *     ),
+     *     @SWG\Parameter(
+     *         name="password",
+     *         in="formData",
+     *         description="Password of register user",
+     *         required=true,
+     *         type="string"
+     *     ),
+     *     @SWG\Parameter(
+     *         name="country",
+     *         in="formData",
+     *         description="Country of register user",
+     *         required=false,
+     *         type="string"
+     *     ),
+     *     @SWG\Parameter(
+     *         name="city",
+     *         in="formData",
+     *         description="City of register user",
+     *         required=false,
+     *         type="string"
+     *     ),
+     *     @SWG\Parameter(
+     *         name="address",
+     *         in="formData",
+     *         description="Address of register user",
+     *         required=false,
+     *         type="string"
+     *     ),
+     *     @SWG\Parameter(
+     *         name="camera",
+     *         in="formData",
+     *         description="Camera if yes 1 else 0",
+     *         required=false,
+     *         type="number"
+     *     ),
+     *     @SWG\Parameter(
+     *         name="image",
+     *         in="formData",
+     *         description="Image of register user",
+     *         required=true,
+     *         type="file"
+     *     ),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Request completed successfully",
+     *     ),
+     *     @SWG\Response(
+     *         response="400",
+     *         description="Missing parameter",
+     *     ),  
+     *     @SWG\Response(
+     *         response="401",
+     *         description="NOt authorize to complete this request",
+     *     )     
+     * )
+     */
+    public function updateprofile(Request $request){
+        return user::updateprofile($request->all());
     }
 }
